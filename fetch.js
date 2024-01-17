@@ -27,7 +27,9 @@ document.getElementById('get-btn')
     .addEventListener('click', async () => {
         const text = document.getElementById('poke-name').value.toLowerCase();
         const pokemon = await fetchPokemon(text);
+        showInfo(pokemon.name,pokemon.id,pokemon.weight,pokemon.sprites.front_default);
         localStorage.setItem('currentPokeId', pokemon.id); //cambiamos currentPokeId por nombre para guardar en localStorage
+        
         console.log(pokemon.name);
         console.log(pokemon.id);
         console.log(pokemon.weight);
@@ -40,6 +42,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const storedId = localStorage.getItem('currentPokeId');
     const initialId = storedId ? parseInt(storedId) : 1;
     const pokemon = await fetchPokemon(initialId);
+    showInfo(pokemon.name,pokemon.id,pokemon.weight,pokemon.sprites.front_default);
+    
     console.log(pokemon.name);
 })
 
@@ -53,10 +57,12 @@ document.getElementById('previous-btn')
         const currentPokeId = parseInt(localStorage.getItem('currentPokeId'));
         const newId = Math.max(1, currentPokeId -1);
         const pokemon = await fetchPokemon(newId);
+        showInfo(pokemon.name,pokemon.id,pokemon.weight,pokemon.sprites.front_default);
+        localStorage.setItem('currentPokeId', pokemon.id);
         console.log(pokemon.name);
         console.log(pokemon.id);
         console.log(pokemon.weight);
-        localStorage.setItem('currentPokeId', pokemon.id);
+        
         
     })
 
@@ -65,14 +71,27 @@ document.getElementById('next-btn')
         const currentPokeId = parseInt(localStorage.getItem('currentPokeId'));
         const newId = currentPokeId + 1;
         const pokemon = await fetchPokemon(newId);
-        console.log(pokemon.name);
+        showInfo(pokemon.name,pokemon.id,pokemon.weight,pokemon.sprites.front_default)
         localStorage.setItem('currentPokeId', pokemon.id);
+        console.log(pokemon.name);
+        
         
     })
 
 
     const showInfo=(pokename,id,weight,img)=>{
-        const nombreCard = document.getElementById
+        const nombreCard = document.getElementById('card-name')
+        const idcard = document.getElementById('poke-id')
+        const weightCard = document.getElementById('poke-weight')
+        const imgCard = document.getElementById('poke-img')
+        const searchPoke= document.getElementById('poke-name')
+
+        nombreCard.innerHTML= pokename;
+        searchPoke.value= pokename;
+        idcard.innerHTML= id;
+        weightCard.innerHTML= weight;
+        imgCard.src= img;
+
     }
 
 
