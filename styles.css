@@ -22,6 +22,15 @@ body {
     align-items: center;
     background-color: #AAD7D9;
     border: white;
+    color: #fa6400;
+
+}
+
+#poke-img{
+    max-width: 200px;
+    height: 200px;
+    border: black;
+    border-width: 10px;
 }
 
 
